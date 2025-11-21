@@ -8,40 +8,71 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&family=Taviraj:wght@400;500;600&display=swap" rel="stylesheet">
   
   <style>
+    :root {
+      --bg-cream: #FDFBF7;
+      --paper-color: #FFFDF0;
+      --text-brown: #5D4037;
+      --gold-main: #D4AF37;
+      --gold-light: #F4E7BE;
+    }
+
     body {
-      box-sizing: border-box;
       font-family: 'Sarabun', sans-serif;
-      background-color: #FFFAF0; /* สีพื้นหลังครีม */
-      color: #8B4513; /* สีตัวอักษรน้ำตาล */
+      background-color: var(--bg-cream);
+      background-image: radial-gradient(#E0E0E0 1px, transparent 1px);
+      background-size: 20px 20px;
+      color: var(--text-brown);
+    }
+
+    h1, h2, h3, .poet-font {
+      font-family: 'Taviraj', serif; /* ฟอนต์แบบไทยเดิม เหมาะกับบทกวี */
     }
     
-    /* Custom Colors classes for reuse */
-    .bg-theme-brown { background-color: #8B4513; color: white; }
-    .bg-theme-gold { background-color: #FFD700; color: #8B4513; }
-    .bg-theme-gold-dark { background-color: #D4AF37; color: #8B4513; }
-    .text-theme-brown { color: #8B4513; }
+    /* Paper Card Effect */
+    .paper-card {
+      background-color: var(--paper-color);
+      background-image: url("https://www.transparenttextures.com/patterns/cream-paper.png"); /* Texture กระดาษ */
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease;
+      border: 1px solid #EDE7D9;
+    }
     
+    .paper-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      border-color: var(--gold-main);
+    }
+    
+    /* Top 3 Glow */
     .golden-glow {
-      box-shadow: 0 0 30px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.3);
-      animation: pulse-gold 2s ease-in-out infinite;
+      border: 2px solid var(--gold-main);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+      background: linear-gradient(to bottom right, #FFFDF0, #FFF9C4);
     }
     
-    @keyframes pulse-gold {
-      0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.3); }
-      50% { transform: scale(1.02); box-shadow: 0 0 40px rgba(255, 215, 0, 0.8), 0 0 80px rgba(255, 215, 0, 0.4); }
-    }
-    
+    /* Heart Animation */
     .heart-liked {
       color: #ef4444;
-      animation: heart-beat 0.3s ease-in-out;
+      animation: heart-beat 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     
     @keyframes heart-beat {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.3); }
+      0% { transform: scale(1); }
+      50% { transform: scale(1.4); }
+      100% { transform: scale(1); }
+    }
+
+    /* Loading Fade In */
+    .fade-in {
+      animation: fadeIn 0.5s ease-in;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     
     /* Masonry Layout */
@@ -65,235 +96,234 @@
   <audio id="sfx3" src="https://nonthaphathr.github.io/uploadimg/heartclick.mp3"></audio>
   <audio id="sfx4" src="https://nonthaphathr.github.io/uploadimg/commentpoet.mp3"></audio>
 
-  <div id="page1" class="min-h-full flex flex-col items-center justify-center p-6 mt-10">
-    <img id="logo" src="https://nonthaphathr.github.io/uploadimg/logokhampraphan-non.png" alt="โลโก้" class="w-40 h-40 mb-6 object-contain">
-    <h1 class="text-3xl md:text-4xl font-bold text-center mb-8 text-theme-brown">ลานนิทรรศการแสดงผลงานออนไลน์<br>อินทรวิเชียรฉันท์ ๑๑ ครั้งที่ ๑</h1>
+  <div id="page1" class="min-h-screen flex flex-col items-center justify-center p-6 fade-in relative overflow-hidden">
+    <div class="absolute -top-20 -left-20 w-64 h-64 bg-yellow-100 rounded-full opacity-50 blur-3xl z-0"></div>
+    <div class="absolute top-40 -right-20 w-72 h-72 bg-orange-100 rounded-full opacity-50 blur-3xl z-0"></div>
+
+    <img id="logo" src="https://nonthaphathr.github.io/uploadimg/logokhampraphan-non.png" alt="โลโก้" class="w-48 h-48 mb-6 object-contain z-10 drop-shadow-lg">
+    <h1 class="text-3xl md:text-5xl font-bold text-center mb-4 text-[#5D4037] z-10 leading-relaxed">ลานนิทรรศการแสดงผลงานออนไลน์<br><span class="text-[#D4AF37]">อินทรวิเชียรฉันท์ ๑๑</span></h1>
+    <p class="text-lg text-gray-600 mb-10 z-10">โรงเรียนกระดุมทองวิทยา</p>
     
-    <div class="flex flex-col gap-4 w-full max-w-md">
-      <button id="visitBtn" class="bg-theme-gold-dark w-full py-4 px-6 text-lg font-bold rounded-lg shadow-lg transition-all hover:scale-105 border-2 border-[#8B4513]">
-        เข้าชมนิทรรศการ (ไม่ลงทะเบียน)
+    <div class="flex flex-col gap-4 w-full max-w-md z-10">
+      <button id="visitBtn" class="bg-white hover:bg-yellow-50 text-[#5D4037] w-full py-4 px-6 text-xl font-bold rounded-xl shadow-md transition-all hover:shadow-lg border-2 border-[#D4AF37] flex items-center justify-center gap-2">
+        <span>👀</span> เข้าชมนิทรรศการ (บุคคลทั่วไป)
       </button> 
-      <button id="registerBtn" class="bg-theme-gold w-full py-4 px-6 text-lg font-bold rounded-lg shadow-lg transition-all hover:scale-105 border-2 border-[#8B4513]">
-        ลงทะเบียนและส่งผลงาน
+      <button id="registerBtn" class="bg-[#D4AF37] hover:bg-[#B69121] text-white w-full py-4 px-6 text-xl font-bold rounded-xl shadow-lg transition-all hover:scale-105 hover:shadow-xl flex items-center justify-center gap-2">
+        <span>✍️</span> ลงทะเบียนส่งผลงาน
       </button>
     </div>
   </div>
 
-  <div id="page2" class="hidden min-h-full flex flex-col p-6 mt-10">
-    <img src="https://nonthaphathr.github.io/uploadimg/logokhampraphan-non.png" alt="โลโก้" class="w-24 h-24 mx-auto mb-4 object-contain">
-    <h2 id="welcomeMsg" class="text-2xl md:text-3xl font-bold text-center mb-8 text-theme-brown">ยินดีต้อนรับ</h2>
-    
-    <div class="flex flex-col gap-4 w-full max-w-md mx-auto">
-      <button id="visitExhibitionBtn" class="bg-theme-gold w-full py-4 px-6 text-lg font-bold rounded-lg shadow-lg transition-all hover:scale-105 border-2 border-[#8B4513]">
-        เข้าชมนิทรรศการ
-      </button> 
-      <button id="submitWorkBtn" class="bg-theme-gold-dark w-full py-4 px-6 text-lg font-bold rounded-lg shadow-lg transition-all hover:scale-105 border-2 border-[#8B4513]">
-        ส่งผลงานเพื่อจัดแสดง
-      </button>
-      <button onclick="logout()" class="bg-gray-300 text-gray-700 w-full py-2 px-6 text-md font-semibold rounded-lg shadow hover:bg-gray-400 mt-4">
-        ออกจากระบบ
-      </button>
+  <div id="page2" class="hidden min-h-screen flex flex-col p-6 items-center justify-center fade-in">
+    <div class="w-full max-w-lg bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-yellow-100">
+        <img src="https://nonthaphathr.github.io/uploadimg/logokhampraphan-non.png" alt="โลโก้" class="w-24 h-24 mx-auto mb-4 object-contain">
+        <h2 id="welcomeMsg" class="text-2xl md:text-3xl font-bold text-center mb-8 text-[#5D4037]">ยินดีต้อนรับ</h2>
+        
+        <div class="flex flex-col gap-4">
+        <button id="visitExhibitionBtn" class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white w-full py-4 px-6 text-lg font-bold rounded-xl shadow-lg transition-all hover:scale-105">
+            🏛️ เข้าชมลานนิทรรศการ
+        </button> 
+        <button id="submitWorkBtn" class="bg-white text-[#5D4037] border-2 border-[#D4AF37] w-full py-4 px-6 text-lg font-bold rounded-xl shadow-md transition-all hover:bg-yellow-50">
+            📝 ส่งผลงานเข้าประกวด
+        </button>
+        <button onclick="logout()" class="text-gray-500 hover:text-red-500 text-sm font-semibold mt-4 underline text-center">
+            ออกจากระบบ
+        </button>
+        </div>
     </div>
   </div>
 
-  <div id="page3" class="hidden min-h-full p-6">
-    <div class="flex justify-center mb-4">
-        <img src="https://nonthaphathr.github.io/uploadimg/logokhampraphan-non.png" alt="โลโก้" class="w-20 h-20 object-contain">
-    </div>
-    <h2 class="text-3xl font-bold text-center mb-6 text-theme-brown">ลานจัดแสดงผลงาน</h2>
-    
-    <div id="loadingExhibition" class="text-center py-12">
-      <div class="inline-block w-12 h-12 border-4 border-t-transparent rounded-full animate-spin" style="border-top-color: #8B4513; border-right-color: #FFD700;"></div>
-      <p class="mt-4 text-lg">กำลังโหลดผลงาน...</p>
+  <div id="page3" class="hidden min-h-screen p-6 pb-20 fade-in">
+    <div class="flex flex-col items-center mb-8 sticky top-0 bg-[#FDFBF7]/90 backdrop-blur-md py-4 z-40 w-full border-b border-yellow-200">
+        <div class="flex items-center gap-3">
+            <img src="https://nonthaphathr.github.io/uploadimg/logokhampraphan-non.png" alt="โลโก้" class="w-12 h-12 object-contain">
+            <h2 class="text-2xl md:text-3xl font-bold text-[#5D4037]">ลานจัดแสดงผลงาน</h2>
+        </div>
     </div>
     
-    <div id="exhibitionGrid" class="masonry-grid"></div>
-    
-    <div class="fixed bottom-6 right-6 z-40">
-      <button onclick="location.reload()" class="bg-[#8B4513] text-white p-3 rounded-full shadow-lg hover:bg-[#6d360f] border-2 border-[#FFD700] flex items-center gap-2 px-4">
-        🏠 กลับหน้าหลัก
-      </button>
+    <div id="loadingExhibition" class="text-center py-20">
+      <div class="inline-block w-16 h-16 border-4 border-t-[#D4AF37] border-r-[#D4AF37] border-b-transparent border-l-transparent rounded-full animate-spin"></div>
+      <p class="mt-6 text-xl text-[#8B4513] animate-pulse">กำลังจัดเตรียมสถานที่...</p>
     </div>
+
+    <div id="emptyState" class="hidden text-center py-20 fade-in">
+        <div class="text-6xl mb-4">📜</div>
+        <h3 class="text-2xl font-bold text-[#5D4037] mb-2">ยังไม่มีผลงานจัดแสดง</h3>
+        <p class="text-gray-600 mb-8">มาร่วมเป็นคนแรกที่ส่งผลงานเข้าประกวดกันเถอะ!</p>
+        <button onclick="showModal('submitWorkModal')" class="bg-[#D4AF37] text-white py-3 px-8 rounded-full font-bold shadow-lg hover:scale-105 transition-all">
+            ส่งผลงานทันที
+        </button>
+    </div>
+    
+    <div id="exhibitionGrid" class="masonry-grid max-w-7xl mx-auto"></div>
+    
+    <button onclick="location.reload()" class="fixed bottom-6 right-6 bg-[#5D4037] text-white p-4 rounded-full shadow-2xl hover:bg-[#3E2723] transition-all z-50 group flex items-center gap-2 pr-6">
+       <span class="text-xl">🏠</span>
+       <span class="font-bold">กลับหน้าหลัก</span>
+    </button>
   </div>
 
-  <div id="registerModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-    <div class="rounded-lg shadow-2xl p-6 w-full max-w-md bg-white text-theme-brown border-4 border-[#FFD700]">
-      <h3 class="text-2xl font-bold mb-4">ลงทะเบียน</h3>
+  <div id="registerModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md border-t-8 border-[#D4AF37]">
+      <h3 class="text-2xl font-bold mb-6 text-[#5D4037] text-center">ลงทะเบียนนักกวี</h3>
       <form id="registerForm" class="space-y-4">
-        <div>
-          <label for="prefix" class="block text-sm font-semibold mb-1">คำนำหน้า</label> 
-          <select id="prefix" required class="w-full px-4 py-2 border-2 border-[#D4AF37] rounded-lg focus:outline-none focus:ring-2 bg-[#FFFAF0]"> 
-            <option value="">เลือกคำนำหน้า</option> <option value="เด็กชาย">เด็กชาย</option> <option value="เด็กหญิง">เด็กหญิง</option> <option value="นาย">นาย</option> <option value="นางสาว">นางสาว</option> 
-          </select>
+        <div class="grid grid-cols-3 gap-4">
+            <div class="col-span-1">
+                <label class="block text-xs font-bold text-gray-500 mb-1">คำนำหน้า</label> 
+                <select id="prefix" required class="w-full px-3 py-2 bg-yellow-50 border border-yellow-200 rounded-lg focus:ring-2 focus:ring-[#D4AF37] outline-none"> <option value="">เลือก</option> <option value="เด็กชาย">ด.ช.</option> <option value="เด็กหญิง">ด.ญ.</option> <option value="นาย">นาย</option> <option value="นางสาว">น.ส.</option> </select>
+            </div>
+            <div class="col-span-2">
+                <label class="block text-xs font-bold text-gray-500 mb-1">ชื่อ</label> 
+                <input type="text" id="firstName" required class="w-full px-3 py-2 bg-yellow-50 border border-yellow-200 rounded-lg focus:ring-2 focus:ring-[#D4AF37] outline-none">
+            </div>
         </div>
         <div>
-          <label for="firstName" class="block text-sm font-semibold mb-1">ชื่อ</label> 
-          <input type="text" id="firstName" required class="w-full px-4 py-2 border-2 border-[#D4AF37] rounded-lg focus:outline-none focus:ring-2 bg-[#FFFAF0]">
+            <label class="block text-xs font-bold text-gray-500 mb-1">นามสกุล</label> 
+            <input type="text" id="lastName" required class="w-full px-3 py-2 bg-yellow-50 border border-yellow-200 rounded-lg focus:ring-2 focus:ring-[#D4AF37] outline-none">
         </div>
-        <div>
-          <label for="lastName" class="block text-sm font-semibold mb-1">สกุล</label> 
-          <input type="text" id="lastName" required class="w-full px-4 py-2 border-2 border-[#D4AF37] rounded-lg focus:outline-none focus:ring-2 bg-[#FFFAF0]">
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <label class="block text-xs font-bold text-gray-500 mb-1">ระดับชั้น</label> 
+                <select id="grade" required class="w-full px-3 py-2 bg-yellow-50 border border-yellow-200 rounded-lg focus:ring-2 focus:ring-[#D4AF37] outline-none"> <option value="">เลือกชั้น</option> <option value="ม.1">ม.1</option> <option value="ม.2">ม.2</option> <option value="ม.3">ม.3</option> <option value="ม.4">ม.4</option> <option value="ม.5">ม.5</option> <option value="ม.6">ม.6</option> </select>
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-gray-500 mb-1">เลขที่</label> 
+                <input type="number" id="studentNumber" required min="1" class="w-full px-3 py-2 bg-yellow-50 border border-yellow-200 rounded-lg focus:ring-2 focus:ring-[#D4AF37] outline-none">
+            </div>
         </div>
-        <div>
-          <label for="grade" class="block text-sm font-semibold mb-1">ชั้น</label> 
-          <select id="grade" required class="w-full px-4 py-2 border-2 border-[#D4AF37] rounded-lg focus:outline-none focus:ring-2 bg-[#FFFAF0]"> 
-            <option value="">เลือกชั้นเรียน</option> <option value="ม.1">ม.1</option> <option value="ม.2">ม.2</option> <option value="ม.3">ม.3</option> <option value="ม.4">ม.4</option> <option value="ม.5">ม.5</option> <option value="ม.6">ม.6</option> 
-          </select>
-        </div>
-        <div>
-          <label for="studentNumber" class="block text-sm font-semibold mb-1">เลขที่</label> 
-          <input type="number" id="studentNumber" required min="1" class="w-full px-4 py-2 border-2 border-[#D4AF37] rounded-lg focus:outline-none focus:ring-2 bg-[#FFFAF0]">
-        </div>
-        <div class="flex gap-3 mt-6">
-          <button type="submit" id="submitRegisterBtn" class="flex-1 bg-theme-gold py-3 px-6 font-bold rounded-lg shadow hover:scale-105"> ลงทะเบียน </button> 
-          <button type="button" id="cancelRegisterBtn" class="flex-1 bg-gray-300 text-gray-700 py-3 px-6 font-bold rounded-lg shadow hover:scale-105"> ยกเลิก </button>
+        <div class="flex gap-3 mt-6 pt-4 border-t">
+          <button type="submit" id="submitRegisterBtn" class="flex-1 bg-[#D4AF37] text-white py-3 rounded-xl font-bold hover:shadow-lg transition-all">ลงทะเบียน</button> 
+          <button type="button" id="cancelRegisterBtn" class="flex-1 bg-gray-100 text-gray-600 py-3 rounded-xl font-bold hover:bg-gray-200 transition-all">ยกเลิก</button>
         </div>
       </form>
       <div id="registerLoading" class="hidden text-center py-4">
-        <div class="inline-block w-8 h-8 border-4 border-t-transparent rounded-full animate-spin border-[#8B4513]"></div>
-        <p class="mt-2">กำลังลงทะเบียน...</p>
+        <div class="inline-block w-8 h-8 border-4 border-t-[#D4AF37] rounded-full animate-spin"></div>
+        <p class="mt-2 text-sm text-gray-500">กำลังบันทึกข้อมูล...</p>
       </div>
     </div>
   </div>
 
-  <div id="submitWorkModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-    <div class="rounded-lg shadow-2xl p-6 w-full max-w-md bg-white text-theme-brown border-4 border-[#FFD700]">
-      <h3 class="text-2xl font-bold mb-4">ส่งผลงาน</h3>
+  <div id="submitWorkModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md border-t-8 border-[#D4AF37]">
+      <h3 class="text-2xl font-bold mb-4 text-[#5D4037] text-center">ส่งผลงานประชัน</h3>
       <form id="submitWorkForm" class="space-y-4">
         <div>
-          <label for="workTitle" class="block text-sm font-semibold mb-1">ชื่อเรื่อง</label> 
-          <input type="text" id="workTitle" required class="w-full px-4 py-2 border-2 border-[#D4AF37] rounded-lg focus:outline-none focus:ring-2 bg-[#FFFAF0]">
+          <label class="block text-sm font-bold text-gray-600 mb-1">ชื่อเรื่อง</label> 
+          <input type="text" id="workTitle" placeholder="ตั้งชื่อเรื่องให้น่าสนใจ..." required class="w-full px-4 py-3 bg-yellow-50 border border-yellow-200 rounded-xl focus:ring-2 focus:ring-[#D4AF37] outline-none">
         </div>
         <div>
-          <label for="workContent" class="block text-sm font-semibold mb-1">เนื้อหาบทกวี</label> 
-          <textarea id="workContent" required rows="6" class="w-full px-4 py-2 border-2 border-[#D4AF37] rounded-lg focus:outline-none focus:ring-2 resize-none bg-[#FFFAF0]"></textarea>
+          <label class="block text-sm font-bold text-gray-600 mb-1">เนื้อหาบทกวี (อินทรวิเชียรฉันท์ ๑๑)</label> 
+          <textarea id="workContent" placeholder="วางบทกวีของคุณที่นี่..." required rows="8" class="w-full px-4 py-3 bg-yellow-50 border border-yellow-200 rounded-xl focus:ring-2 focus:ring-[#D4AF37] outline-none resize-none font-sarabun"></textarea>
         </div>
         <div class="flex gap-3 mt-6">
-          <button type="submit" id="submitWorkSubmitBtn" class="flex-1 bg-theme-gold py-3 px-6 font-bold rounded-lg shadow hover:scale-105"> ส่งผลงาน </button> 
-          <button type="button" id="cancelWorkBtn" class="flex-1 bg-gray-300 text-gray-700 py-3 px-6 font-bold rounded-lg shadow hover:scale-105"> ยกเลิก </button>
+          <button type="submit" id="submitWorkSubmitBtn" class="flex-1 bg-[#D4AF37] text-white py-3 rounded-xl font-bold shadow hover:scale-105 transition-all">ส่งผลงาน</button> 
+          <button type="button" id="cancelWorkBtn" class="flex-1 bg-gray-100 text-gray-600 py-3 rounded-xl font-bold hover:bg-gray-200 transition-all">ยกเลิก</button>
         </div>
       </form>
       <div id="workLoading" class="hidden text-center py-4">
-        <div class="inline-block w-8 h-8 border-4 border-t-transparent rounded-full animate-spin border-[#8B4513]"></div>
-        <p class="mt-2">กำลังส่งผลงาน...</p>
+        <div class="inline-block w-8 h-8 border-4 border-t-[#D4AF37] rounded-full animate-spin"></div>
+        <p class="mt-2 text-sm text-gray-500">กำลังส่งมอบผลงาน...</p>
       </div>
     </div>
   </div>
 
-  <div id="commentsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-    <div class="rounded-lg shadow-2xl p-6 w-full max-w-2xl max-h-[90%] overflow-y-auto bg-white text-theme-brown border-4 border-[#FFD700]">
-      <h3 class="text-2xl font-bold mb-4">ความคิดเห็น</h3>
-      <div id="commentsList" class="space-y-3 mb-4 max-h-64 overflow-y-auto p-2 bg-[#FFFAF0] rounded-lg border border-[#D4AF37]"></div>
-      <div id="addCommentSection">
-        <textarea id="newComment" placeholder="เขียนความคิดเห็น..." rows="3" class="w-full px-4 py-2 border-2 border-[#D4AF37] rounded-lg focus:outline-none focus:ring-2 resize-none mb-3 bg-white"></textarea>
-        <div class="flex gap-3">
-          <button id="submitCommentBtn" class="flex-1 bg-theme-gold py-2 px-4 font-bold rounded-lg shadow hover:scale-105"> ส่งความคิดเห็น </button> 
-          <button id="closeCommentsBtn" class="flex-1 bg-gray-300 text-gray-700 py-2 px-4 font-bold rounded-lg shadow hover:scale-105"> ปิด </button>
-        </div>
+  <div id="commentsModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-lg h-[80vh] flex flex-col relative">
+      <button id="closeCommentsBtn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">✕</button>
+      <h3 class="text-xl font-bold mb-4 text-[#5D4037] border-b pb-2">ความคิดเห็น</h3>
+      
+      <div id="commentsList" class="flex-1 overflow-y-auto space-y-3 p-2 mb-4 bg-gray-50 rounded-xl"></div>
+      
+      <div id="addCommentSection" class="mt-auto pt-2">
+        <textarea id="newComment" placeholder="แสดงความคิดเห็นอย่างสร้างสรรค์..." rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4AF37] outline-none resize-none mb-2"></textarea>
+        <button id="submitCommentBtn" class="w-full bg-[#D4AF37] text-white py-3 rounded-xl font-bold shadow hover:bg-[#B69121] transition-all">ส่งความคิดเห็น</button>
       </div>
-      <div id="commentLoading" class="hidden text-center py-4">
-        <div class="inline-block w-6 h-6 border-4 border-t-transparent rounded-full animate-spin border-[#8B4513]"></div>
-      </div>
-    </div>
-  </div>
-
-  <div id="guestAlertModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-    <div class="rounded-lg shadow-2xl p-6 w-full max-w-md text-center bg-white text-theme-brown border-4 border-[#FFD700]">
-      <h3 class="text-xl font-bold mb-4">โปรดลงทะเบียนก่อน</h3>
-      <p class="mb-6 text-gray-700">คุณต้องลงทะเบียนเพื่อใช้งานฟีเจอร์นี้</p>
-      <div class="flex gap-3">
-        <button id="goToRegisterBtn" class="flex-1 bg-theme-gold py-3 px-6 font-bold rounded-lg shadow hover:scale-105"> ไปลงทะเบียน </button> 
-        <button id="closeGuestAlertBtn" class="flex-1 bg-gray-300 text-gray-700 py-3 px-6 font-bold rounded-lg shadow hover:scale-105"> ปิด </button>
+      <div id="commentLoading" class="hidden absolute inset-0 bg-white/80 flex items-center justify-center rounded-2xl">
+        <div class="inline-block w-8 h-8 border-4 border-t-[#D4AF37] rounded-full animate-spin"></div>
       </div>
     </div>
   </div>
 
-  <div id="toast" class="hidden fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 transition-all text-white font-semibold"></div>
+  <div id="guestAlertModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-sm text-center">
+      <div class="text-5xl mb-4">🔒</div>
+      <h3 class="text-xl font-bold mb-2 text-[#5D4037]">สงวนสิทธิ์สำหรับสมาชิก</h3>
+      <p class="mb-6 text-gray-600">กรุณาลงทะเบียนเพื่อกดถูกใจหรือแสดงความคิดเห็น</p>
+      <div class="flex flex-col gap-3">
+        <button id="goToRegisterBtn" class="w-full bg-[#D4AF37] text-white py-3 rounded-xl font-bold shadow hover:scale-105 transition-all">ลงทะเบียนเลย</button> 
+        <button id="closeGuestAlertBtn" class="w-full text-gray-500 hover:text-gray-800 py-2">ปิดหน้าต่าง</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="hidden fixed top-6 right-6 px-6 py-4 rounded-xl shadow-2xl z-[100] text-white font-bold transform transition-all duration-300 translate-y-[-20px] opacity-0 flex items-center gap-3"></div>
 
   <script>
-    // --- Configuration & Constants ---
-    // ใส่ URL ของ App Script ที่ได้มาที่นี่
-    const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxz2rxiHgeeV8fffc21Z0dhtj21V7519a33j1ekaEs258QDmdcjRTnnMABm3_7B0mXT/exec';
-    
+    // ==========================================
+    // ⚙️ ตั้งค่า (Configuration)
+    // ==========================================
+    // 👇 ใส่ Web App URL ของคุณตรงนี้
+    const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxz2rxiHgeeV8fffc21Z0dhtj21V7519a33j1ekaEs258QDmdcjRTnnMABm3_7B0mXT/exec'; 
+
     let currentWorkId = null;
     let allWorks = [];
 
-    // --- Utility Functions ---
-
+    // ==========================================
+    // 🔊 Sound & UI Effects
+    // ==========================================
     function playSFX(sfxNumber) {
       const audio = document.getElementById(`sfx${sfxNumber}`);
-      if (audio) {
-        audio.currentTime = 0;
-        audio.play().catch(e => console.log('Audio play failed:', e));
-      }
+      if (audio) { audio.currentTime = 0; audio.play().catch(e => {}); }
     }
 
     function showToast(message, type = 'success') {
       const toast = document.getElementById('toast');
-      const bgColor = type === 'success' ? '#10b981' : '#ef4444';
-      toast.style.backgroundColor = bgColor;
-      toast.textContent = message;
+      toast.className = `fixed top-6 right-6 px-6 py-4 rounded-xl shadow-2xl z-[100] text-white font-bold flex items-center gap-3 transition-all duration-500 ${type === 'success' ? 'bg-green-500' : 'bg-red-500'}`;
+      toast.innerHTML = type === 'success' ? `<span>✅</span> ${message}` : `<span>⚠️</span> ${message}`;
       toast.classList.remove('hidden');
-      setTimeout(() => toast.classList.add('hidden'), 3000);
+      setTimeout(() => { toast.classList.add('opacity-0', 'translate-y-[-20px]'); }, 10); // Trigger transition
+      setTimeout(() => { toast.classList.remove('opacity-0', 'translate-y-[-20px]'); }, 50);
+      
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-[-20px]');
+        setTimeout(() => toast.classList.add('hidden'), 500);
+      }, 3000);
     }
 
     function showPage(pageNumber) {
-      document.getElementById('page1').classList.add('hidden');
-      document.getElementById('page2').classList.add('hidden');
-      document.getElementById('page3').classList.add('hidden');
+      [1, 2, 3].forEach(n => document.getElementById(`page${n}`).classList.add('hidden'));
       document.getElementById(`page${pageNumber}`).classList.remove('hidden');
+      window.scrollTo(0, 0);
     }
 
-    function showModal(modalId) {
-      document.getElementById(modalId).classList.remove('hidden');
-    }
-
-    function hideModal(modalId) {
-      document.getElementById(modalId).classList.add('hidden');
-    }
-
-    function getUserId() {
-      return localStorage.getItem('user_id');
-    }
-
-    function getUserName() {
-      return localStorage.getItem('user_name') || 'ผู้ใช้งาน';
-    }
+    function showModal(id) { document.getElementById(id).classList.remove('hidden'); }
+    function hideModal(id) { document.getElementById(id).classList.add('hidden'); }
     
-    function logout() {
-        localStorage.removeItem('user_id');
-        localStorage.removeItem('user_name');
-        location.reload();
-    }
+    function getUserId() { return localStorage.getItem('user_id'); }
+    function getUserName() { return localStorage.getItem('user_name') || 'นักกวี'; }
+    function logout() { localStorage.clear(); location.reload(); }
 
-    // --- API Communication ---
-
+    // ==========================================
+    // 📡 API Connection
+    // ==========================================
     async function callAppScript(action, data) {
-      if (!APP_SCRIPT_URL) {
-        throw new Error('กรุณาตั้งค่า App Script URL ก่อน');
-      }
-      
+      if (!APP_SCRIPT_URL) { showToast('กรุณาตั้งค่า URL App Script', 'error'); return; }
       const response = await fetch(APP_SCRIPT_URL, {
         method: 'POST',
         body: JSON.stringify({ action, ...data })
       });
-      
-      if (!response.ok) throw new Error('เกิดข้อผิดพลาดในการเชื่อมต่อ');
       return await response.json();
     }
 
-    // --- Event Handlers ---
-
+    // ==========================================
+    // 🎮 Logic Functions
+    // ==========================================
     async function handleRegister(e) {
-      e.preventDefault();
-      playSFX(1);
-      
+      e.preventDefault(); playSFX(1);
       const form = document.getElementById('registerForm');
       const loading = document.getElementById('registerLoading');
-      
-      form.classList.add('hidden');
-      loading.classList.remove('hidden');
-      
+      form.classList.add('hidden'); loading.classList.remove('hidden');
+
       try {
         const formData = {
           คำนำหน้า: document.getElementById('prefix').value,
@@ -302,346 +332,215 @@
           ชั้น: document.getElementById('grade').value,
           เลขที่: document.getElementById('studentNumber').value
         };
-        
         const result = await callAppScript('register', { data: formData });
-        
         if (result.success) {
           localStorage.setItem('user_id', result.user_id);
-          localStorage.setItem('user_name', `${formData.คำนำหน้า}${formData.ชื่อ} ${formData.สกุล}`);
-          
+          localStorage.setItem('user_name', `${formData.คำนำหน้า}${formData.ชื่อ}`);
           showToast('ลงทะเบียนสำเร็จ!');
           hideModal('registerModal');
-          updateWelcomeMessage();
+          updateWelcome();
           showPage(2);
-        } else {
-          showToast(result.message || 'เกิดข้อผิดพลาด', 'error');
-        }
-      } catch (error) {
-        console.error(error);
-        showToast('เกิดข้อผิดพลาดในการลงทะเบียน', 'error');
-      } finally {
-        form.classList.remove('hidden');
-        loading.classList.add('hidden');
-        form.reset();
-      }
+        } else { showToast(result.message, 'error'); }
+      } catch (err) { showToast('เกิดข้อผิดพลาด', 'error'); } 
+      finally { form.classList.remove('hidden'); loading.classList.add('hidden'); form.reset(); }
     }
 
     async function handleSubmitWork(e) {
-      e.preventDefault();
-      playSFX(1);
-      
+      e.preventDefault(); playSFX(1);
       const userId = getUserId();
-      if (!userId) {
-        showGuestAlert();
-        return;
-      }
-      
+      if (!userId) { showModal('guestAlertModal'); return; }
+
       const form = document.getElementById('submitWorkForm');
       const loading = document.getElementById('workLoading');
-      
-      form.classList.add('hidden');
-      loading.classList.remove('hidden');
-      
+      form.classList.add('hidden'); loading.classList.remove('hidden');
+
       try {
         const workData = {
           user_id: userId,
           ชื่อเรื่อง: document.getElementById('workTitle').value,
           เนื้อหาบทกวี: document.getElementById('workContent').value
         };
-        
         const result = await callAppScript('submitWork', { data: workData });
-        
         if (result.success) {
-          showToast('ส่งผลงานสำเร็จ!');
+          showToast('ส่งผลงานเรียบร้อย!');
           hideModal('submitWorkModal');
           form.reset();
-        } else {
-          showToast(result.message || 'เกิดข้อผิดพลาด', 'error');
-        }
-      } catch (error) {
-        showToast('เกิดข้อผิดพลาดในการส่งผลงาน', 'error');
-      } finally {
-        form.classList.remove('hidden');
-        loading.classList.add('hidden');
-      }
+        } else { showToast(result.message, 'error'); }
+      } catch (err) { showToast('ส่งผลงานล้มเหลว', 'error'); } 
+      finally { form.classList.remove('hidden'); loading.classList.add('hidden'); }
     }
 
     async function loadExhibition() {
-      const loading = document.getElementById('loadingExhibition');
-      const grid = document.getElementById('exhibitionGrid');
-      
-      loading.classList.remove('hidden');
-      grid.innerHTML = '';
-      
-      const userId = getUserId() || "";
-
-      try {
-        const result = await callAppScript('getData', { data: { user_id: userId } });
+        const loading = document.getElementById('loadingExhibition');
+        const grid = document.getElementById('exhibitionGrid');
+        const emptyState = document.getElementById('emptyState');
         
-        if (result.success && result.data) {
-          allWorks = result.data;
-          renderWorks(allWorks);
-        } else {
-          grid.innerHTML = '<p class="text-center col-span-full">ไม่พบผลงาน</p>';
+        loading.classList.remove('hidden');
+        emptyState.classList.add('hidden');
+        grid.innerHTML = ''; // Clear old items
+
+        try {
+            const userId = getUserId() || "";
+            const result = await callAppScript('getData', { data: { user_id: userId } });
+            
+            console.log("Data received:", result); // Debug ดูข้อมูลใน Console
+
+            if (result.success && result.data && result.data.length > 0) {
+                allWorks = result.data;
+                renderWorks(allWorks);
+            } else {
+                // ✅ แสดงหน้า Empty State เมื่อไม่มีข้อมูล
+                emptyState.classList.remove('hidden');
+            }
+        } catch (error) {
+            console.error("Error loading:", error);
+            grid.innerHTML = '<p class="text-center text-red-500 w-full col-span-3">เกิดข้อผิดพลาดในการโหลดข้อมูล</p>';
+        } finally {
+            loading.classList.add('hidden');
         }
-      } catch (error) {
-        console.log(error);
-        grid.innerHTML = '<p class="text-center col-span-full text-red-600">เกิดข้อผิดพลาดในการโหลดผลงาน</p>';
-      } finally {
-        loading.classList.add('hidden');
-      }
     }
 
     function renderWorks(works) {
-      const grid = document.getElementById('exhibitionGrid');
-      grid.innerHTML = '';
-      
-      works.forEach(work => {
-        const card = document.createElement('div');
-        card.className = 'masonry-item p-5 rounded-lg shadow-lg transition-all hover:shadow-xl bg-white text-[#8B4513] border border-[#ffecd1]';
-        
-        if (work.is_top3) {
-          card.classList.add('golden-glow');
-          card.style.background = `linear-gradient(135deg, #FFFFFF 0%, #FFF9E6 100%)`;
-          card.style.border = `3px solid #FFD700`;
-        }
-        
-        const crown = work.is_top3 ? '<span class="text-2xl mr-2">👑</span>' : '';
-        
-        card.innerHTML = `
-          ${crown ? `<div class="mb-2">${crown}</div>` : ''}
-          <h3 class="text-xl font-bold mb-2 break-words text-[#8B4513]">${work.ชื่อเรื่อง}</h3>
-          <p class="text-sm mb-4 whitespace-pre-wrap leading-relaxed text-gray-700">${work.เนื้อหาบทกวี}</p>
-          <div class="border-t border-gray-200 pt-3 mb-3">
-             <p class="text-xs font-semibold text-[#D4AF37]">โดย: ${work.ชื่อผู้แต่ง} (${work.ชั้น})</p>
-          </div>
-          <div class="flex items-center justify-between mt-2">
-            <button class="like-btn flex items-center gap-2 px-3 py-2 rounded-lg font-semibold transition-all hover:scale-110 bg-[#D4AF37] text-white" data-work-id="${work.work_id}">
-              <span class="heart-icon text-xl ${work.is_liked ? 'heart-liked' : ''}">${work.is_liked ? '❤️' : '🤍'}</span>
-              <span class="like-count">${work.จำนวนหัวใจ}</span>
-            </button>
-            <button class="comment-btn px-3 py-2 rounded-lg font-semibold transition-all hover:scale-105 bg-[#FFD700] text-[#8B4513]" data-work-id="${work.work_id}">
-              💬 ความคิดเห็น (${work.ความคิดเห็น ? work.ความคิดเห็น.length : 0})
-            </button>
-          </div>
-        `;
-        
-        grid.appendChild(card);
-      });
-      
-      attachWorkEventListeners();
+        const grid = document.getElementById('exhibitionGrid');
+        grid.innerHTML = '';
+
+        works.forEach((work, index) => {
+            const card = document.createElement('div');
+            // Animation Stagger: ให้การ์ดค่อยๆ โผล่มาทีละใบ
+            card.style.animationDelay = `${index * 0.1}s`;
+            card.className = 'masonry-item paper-card rounded-xl p-6 relative fade-in break-inside-avoid mb-6';
+
+            if (work.is_top3) {
+                card.classList.add('golden-glow');
+            }
+
+            const crown = work.is_top3 ? '<div class="absolute -top-4 -right-4 text-4xl drop-shadow-md filter animate-bounce">👑</div>' : '';
+
+            card.innerHTML = `
+                ${crown}
+                <div class="mb-4 pb-2 border-b border-yellow-100">
+                    <h3 class="text-xl font-bold text-[#5D4037] leading-tight break-words">${work.ชื่อเรื่อง}</h3>
+                    <p class="text-xs text-[#D4AF37] mt-1 font-semibold">โดย: ${work.ชื่อผู้แต่ง} (${work.ชั้น})</p>
+                </div>
+                
+                <div class="mb-6 relative">
+                    <span class="absolute -top-2 -left-2 text-4xl text-gray-100 font-serif z-0">“</span>
+                    <p class="poet-font text-lg text-gray-700 whitespace-pre-wrap leading-relaxed relative z-10 pl-4">${work.เนื้อหาบทกวี}</p>
+                    <span class="absolute -bottom-4 -right-0 text-4xl text-gray-100 font-serif z-0">”</span>
+                </div>
+
+                <div class="flex items-center justify-between mt-4 pt-3 border-t border-gray-100 gap-2">
+                    <button class="like-btn flex-1 flex items-center justify-center gap-2 py-2 rounded-lg transition-all hover:bg-red-50 group border border-gray-200" data-work-id="${work.work_id}">
+                        <span class="heart-icon text-2xl transition-transform group-hover:scale-125 ${work.is_liked ? 'heart-liked' : 'text-gray-300'}">${work.is_liked ? '❤️' : '🤍'}</span>
+                        <span class="like-count font-bold text-gray-600">${work.จำนวนหัวใจ}</span>
+                    </button>
+                    <button class="comment-btn flex-1 flex items-center justify-center gap-2 py-2 rounded-lg transition-all hover:bg-yellow-50 text-gray-600 font-semibold border border-gray-200" data-work-id="${work.work_id}">
+                        <span>💬</span>
+                        <span>${work.ความคิดเห็น ? work.ความคิดเห็น.length : 0}</span>
+                    </button>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+
+        // Re-attach listeners because innerHTML wiped them
+        document.querySelectorAll('.like-btn').forEach(btn => btn.addEventListener('click', handleLike));
+        document.querySelectorAll('.comment-btn').forEach(btn => btn.addEventListener('click', handleOpenComments));
     }
 
-    function attachWorkEventListeners() {
-      document.querySelectorAll('.like-btn').forEach(btn => {
-        btn.addEventListener('click', handleLike);
-      });
-      
-      document.querySelectorAll('.comment-btn').forEach(btn => {
-        btn.addEventListener('click', handleOpenComments);
-      });
-    }
-
+    // ... (ส่วน handleLike, handleComments, renderComments เหมือนเดิม ปรับปรุง UI เล็กน้อย) ...
+    
     async function handleLike(e) {
-      e.preventDefault();
-      playSFX(3);
-      
-      const userId = getUserId();
-      if (!userId) {
-        showGuestAlert();
-        return;
-      }
-      
+      e.preventDefault(); playSFX(3);
+      if (!getUserId()) { showModal('guestAlertModal'); return; }
+
       const btn = e.currentTarget;
       const workId = btn.dataset.workId;
-      const heartIcon = btn.querySelector('.heart-icon');
-      const likeCount = btn.querySelector('.like-count');
-      
+      const icon = btn.querySelector('.heart-icon');
+      const count = btn.querySelector('.like-count');
       btn.disabled = true;
-      
+
       try {
-        const result = await callAppScript('likeWork', { 
-          data: {
-            user_id: userId, 
-            work_id: workId 
-          }
-        });
-        
+        const result = await callAppScript('likeWork', { data: { user_id: getUserId(), work_id: workId } });
         if (result.success) {
-          heartIcon.textContent = '❤️';
-          heartIcon.classList.add('heart-liked');
-          likeCount.textContent = result.new_likes;
-        } else {
-             showToast(result.message, 'error');
-        }
-      } catch (error) {
-        showToast('เกิดข้อผิดพลาด', 'error');
-      } finally {
-        btn.disabled = false;
-      }
+            icon.textContent = '❤️'; icon.classList.add('heart-liked');
+            count.textContent = result.new_likes;
+        } else { showToast(result.message, 'error'); }
+      } catch(e) { showToast('เชื่อมต่อขัดข้อง', 'error'); } 
+      finally { btn.disabled = false; }
     }
 
     async function handleOpenComments(e) {
-      e.preventDefault();
-      playSFX(4);
-      
-      const userId = getUserId();
-      if (!userId) {
-        showGuestAlert();
-        return;
-      }
-      
-      const workId = e.currentTarget.dataset.workId;
-      currentWorkId = workId;
-      
-      showModal('commentsModal');
-      renderComments(workId);
-    }
-
-    function renderComments(workId) {
-      const commentsList = document.getElementById('commentsList');
-      commentsList.innerHTML = '';
-      
-      const work = allWorks.find(w => w.work_id === workId);
-      
-      if (work && work.ความคิดเห็น && work.ความคิดเห็น.length > 0) {
-        work.ความคิดเห็น.forEach(comment => {
-          const commentDiv = document.createElement('div');
-          commentDiv.className = 'p-3 rounded-lg border border-[#D4AF37] mb-2 bg-white';
-          commentDiv.innerHTML = `
-            <p class="font-semibold text-sm text-[#8B4513]">${comment.ชื่อผู้แสดงความคิดเห็น}</p>
-            <p class="text-sm mt-1 text-gray-700">${comment.ข้อความ}</p>
-          `;
-          commentsList.appendChild(commentDiv);
-        });
-      } else {
-        commentsList.innerHTML = '<p class="text-center text-sm text-gray-500">ยังไม่มีความคิดเห็น</p>';
-      }
-    }
-
-    async function handleAddComment(e) {
-      e.preventDefault();
-      
-      const userId = getUserId();
-      if (!userId || !currentWorkId) return;
-      
-      const textarea = document.getElementById('newComment');
-      const commentText = textarea.value.trim();
-      
-      if (!commentText) {
-        showToast('กรุณาเขียนความคิดเห็น', 'error');
-        return;
-      }
-      
-      const loading = document.getElementById('commentLoading');
-      loading.classList.remove('hidden');
-      
-      try {
-        const result = await callAppScript('addComment', {
-          data: {
-            user_id: userId,
-            work_id: currentWorkId,
-            ข้อความ: commentText
-          }
-        });
+        e.preventDefault(); playSFX(4);
+        const workId = e.currentTarget.dataset.workId;
+        if(!getUserId()){ showModal('guestAlertModal'); return; }
         
-        if (result.success) {
-          showToast('เพิ่มความคิดเห็นสำเร็จ!');
-          textarea.value = '';
-          
-          const dataResult = await callAppScript('getData', { data: { user_id: userId } });
-          if(dataResult.success) {
-              allWorks = dataResult.data;
-              renderComments(currentWorkId);
-              renderWorks(allWorks); 
-          }
-        } else {
-          showToast('เกิดข้อผิดพลาด', 'error');
+        currentWorkId = workId;
+        showModal('commentsModal');
+        const list = document.getElementById('commentsList');
+        list.innerHTML = ''; // clear first
+        
+        const work = allWorks.find(w => w.work_id === workId);
+        if(work && work.ความคิดเห็น) {
+            work.ความคิดเห็น.forEach(c => {
+                const div = document.createElement('div');
+                div.className = 'bg-white p-3 rounded-lg border border-gray-200 shadow-sm';
+                div.innerHTML = `<p class="text-xs font-bold text-[#D4AF37]">${c.commenter_name}</p><p class="text-sm text-gray-700 mt-1">${c.comment_text}</p>`;
+                list.appendChild(div);
+            });
+            if(work.ความคิดเห็น.length === 0) list.innerHTML = '<p class="text-center text-gray-400 text-sm mt-4">ยังไม่มีความคิดเห็น เป็นคนแรกเลย!</p>';
         }
-      } catch (error) {
-        console.error(error);
-        showToast('เกิดข้อผิดพลาดในการเชื่อมต่อ', 'error');
-      } finally {
-        loading.classList.add('hidden');
-      }
     }
 
-    function showGuestAlert() {
-      showModal('guestAlertModal');
+    async function handleAddComment() {
+        if(!currentWorkId) return;
+        const txt = document.getElementById('newComment');
+        const val = txt.value.trim();
+        if(!val) return;
+
+        const loading = document.getElementById('commentLoading');
+        loading.classList.remove('hidden');
+
+        try {
+            const res = await callAppScript('addComment', { data: { user_id: getUserId(), work_id: currentWorkId, ข้อความ: val } });
+            if(res.success) {
+                txt.value = '';
+                showToast('ส่งความคิดเห็นแล้ว');
+                hideModal('commentsModal'); // ปิดไปก่อนเพื่อโหลดใหม่แบบเนียนๆ หรือจะ reload data ก็ได้
+                loadExhibition(); // Reload data to refresh comments count
+            }
+        } catch(e) { showToast('ส่งไม่สำเร็จ', 'error'); }
+        finally { loading.classList.add('hidden'); }
     }
 
-    function updateWelcomeMessage() {
-      const userName = getUserName();
-      const welcomeMsg = document.getElementById('welcomeMsg');
-      if (welcomeMsg) {
-        welcomeMsg.textContent = `ยินดีต้อนรับ ${userName}`;
-      }
+    function updateWelcome() {
+        document.getElementById('welcomeMsg').textContent = `ยินดีต้อนรับ, ${getUserName()}`;
     }
 
-    // --- Initialization ---
-
+    // ==========================================
+    // 🚀 Start Application
+    // ==========================================
     document.addEventListener('DOMContentLoaded', () => {
         // Event Listeners
-        document.getElementById('visitBtn').addEventListener('click', () => {
-          playSFX(2);
-          showPage(3);
-          loadExhibition();
-        });
-
-        document.getElementById('registerBtn').addEventListener('click', () => {
-          playSFX(1);
-          showModal('registerModal');
-        });
-
-        document.getElementById('cancelRegisterBtn').addEventListener('click', () => {
-          hideModal('registerModal');
-          document.getElementById('registerForm').reset();
-        });
-
+        document.getElementById('visitBtn').addEventListener('click', () => { playSFX(2); showPage(3); loadExhibition(); });
+        document.getElementById('registerBtn').addEventListener('click', () => { playSFX(1); showModal('registerModal'); });
+        document.getElementById('cancelRegisterBtn').addEventListener('click', () => { hideModal('registerModal'); });
         document.getElementById('registerForm').addEventListener('submit', handleRegister);
-
-        document.getElementById('visitExhibitionBtn').addEventListener('click', () => {
-          playSFX(2);
-          showPage(3);
-          loadExhibition();
-        });
-
-        document.getElementById('submitWorkBtn').addEventListener('click', () => {
-          playSFX(1);
-          showModal('submitWorkModal');
-        });
-
-        document.getElementById('cancelWorkBtn').addEventListener('click', () => {
-          hideModal('submitWorkModal');
-          document.getElementById('submitWorkForm').reset();
-        });
-
+        
+        document.getElementById('visitExhibitionBtn').addEventListener('click', () => { playSFX(2); showPage(3); loadExhibition(); });
+        document.getElementById('submitWorkBtn').addEventListener('click', () => { playSFX(1); showModal('submitWorkModal'); });
+        document.getElementById('cancelWorkBtn').addEventListener('click', () => { hideModal('submitWorkModal'); });
         document.getElementById('submitWorkForm').addEventListener('submit', handleSubmitWork);
-
+        
         document.getElementById('submitCommentBtn').addEventListener('click', handleAddComment);
+        document.getElementById('closeCommentsBtn').addEventListener('click', () => hideModal('commentsModal'));
+        
+        document.getElementById('goToRegisterBtn').addEventListener('click', () => { hideModal('guestAlertModal'); showPage(1); showModal('registerModal'); });
+        document.getElementById('closeGuestAlertBtn').addEventListener('click', () => hideModal('guestAlertModal'));
 
-        document.getElementById('closeCommentsBtn').addEventListener('click', () => {
-          hideModal('commentsModal');
-          document.getElementById('newComment').value = '';
-          currentWorkId = null;
-        });
-
-        document.getElementById('goToRegisterBtn').addEventListener('click', () => {
-          hideModal('guestAlertModal');
-          showPage(1);
-        });
-
-        document.getElementById('closeGuestAlertBtn').addEventListener('click', () => {
-          hideModal('guestAlertModal');
-        });
-
-        // Check Login Status
-        if (getUserId()) {
-          showPage(2);
-          updateWelcomeMessage();
-        }
+        // Check Session
+        if (getUserId()) { showPage(2); updateWelcome(); }
     });
-
   </script>
 </body>
 </html>
