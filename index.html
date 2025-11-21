@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ลานนิทรรศการแสดงผลงานออนไลน์ อินทรวิเชียรฉันท์ ๑๑ V.๑.๒</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>ลานนิทรรศการแสดงผลงานออนไลน์ อินทรวิเชียรฉันท์ ๑๑</title>
   
+  <link rel="icon" type="image/png" href="https://nonthaphathr.github.io/uploadimg/logokhampraphan-non.png">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Prompt:wght@300;400;600&family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
   
   <style>
-    /* 🎨 Theme Variables */
     :root {
       --bg-cream: #FDFBF7;
       --card-bg: #FFFFFF;
@@ -20,43 +21,44 @@
 
     body { font-family: 'Prompt', sans-serif; background-color: var(--bg-cream); color: var(--text-main); overflow-x: hidden; }
     
-    /* 2. ปรับแต่งฟอนต์หัวข้อให้ดูทันสมัย */
+    /* ✅ 2. แก้ฟอนต์ขาดหาย */
     .modern-title {
       font-family: 'Charm', cursive;
       background: linear-gradient(45deg, #8B4513, #D4AF37);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      drop-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-      line-height: 1.4;
+      filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1)); /* ใช้ filter แทน drop-shadow เดิม */
+      line-height: 1.8; /* เพิ่มความสูงบรรทัด เพื่อให้สระไม่โดนตัด */
+      padding-top: 10px; /* เผื่อที่ด้านบน */
+      padding-bottom: 10px; /* เผื่อที่ด้านล่าง */
+      display: inline-block; /* ช่วยให้คำนวณกล่องข้อความได้ดีขึ้น */
+      width: 100%;
     }
 
     .poet-font { font-family: 'Sarabun', sans-serif; }
 
-    /* 📜 Paper Card Style */
+    /* Paper Card Style */
     .paper-card {
       background-color: var(--card-bg);
       border: 1px solid #E5E0D0;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
       position: relative;
-      /* 3. แก้บั๊กมงกุฎหาย: ต้องให้ overflow visible */
       overflow: visible !important; 
     }
     .paper-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1);
       border-color: var(--gold-accent);
-      z-index: 10; /* ยกระดับขึ้นเมื่อ Hover */
+      z-index: 10;
     }
     
-    /* ✨ Top 3 Effects */
     .golden-glow {
       border: 2px solid var(--gold-accent);
       background: linear-gradient(180deg, #FFFFFF 0%, #FFFDF0 100%);
       box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
     }
     
-    /* มงกุฎลอย */
     .crown-icon {
         position: absolute;
         top: -15px;
@@ -68,14 +70,12 @@
     }
     @keyframes bounce-slow { 0%, 100% {transform: translateY(0);} 50% {transform: translateY(-5px);} }
 
-    /* ❤️ Animations */
     .heart-liked { color: #ef4444; animation: heart-pop 0.4s cubic-bezier(0.17, 0.89, 0.32, 1.49); }
     @keyframes heart-pop { 0% {transform: scale(1);} 50% {transform: scale(1.5);} 100% {transform: scale(1);} }
     
     .fade-in { animation: fadeIn 0.6s ease-out forwards; opacity: 0; transform: translateY(20px); }
     @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
 
-    /* 🦋 Fireflies Animation */
     .firefly {
       position: absolute;
       width: 4px; height: 4px;
@@ -94,7 +94,6 @@
       100% { opacity: 0; transform: translate(var(--moveX), var(--moveY)); }
     }
 
-    /* Masonry Grid */
     .masonry-grid { column-count: 1; column-gap: 2rem; }
     @media (min-width: 768px) { .masonry-grid { column-count: 2; } }
     @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
@@ -145,7 +144,7 @@
     <div class="sticky top-0 z-40 bg-[#FAF9F6]/95 backdrop-blur-md py-3 mb-6 border-b border-yellow-200 flex justify-between items-center px-2">
         <div class="flex items-center gap-3">
             <img src="https://nonthaphathr.github.io/uploadimg/logokhampraphan-non.png" class="w-10 h-10">
-            <h2 class="text-xl md:text-2xl font-bold modern-title text-[1.5rem]">ลานจัดแสดง</h2>
+            <h2 class="text-xl md:text-2xl font-bold modern-title text-[1.5rem]" style="margin-bottom: 0;">ลานจัดแสดง</h2>
         </div>
         <button onclick="location.reload()" class="bg-[#5D4037] text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg hover:bg-[#3E2723]">🏠 กลับ</button>
     </div>
@@ -240,7 +239,6 @@
     // 🦋 Create Fireflies
     function createFireflies() {
         const container = document.getElementById('fireflies-container');
-        // Clear old fireflies first to avoid duplicates
         container.innerHTML = '';
         for(let i=0; i<15; i++) {
             const f = document.createElement('div');
@@ -354,18 +352,16 @@
         }
     }
 
-    // ❤️ Toggle Like Logic
     async function toggleLike(workId, btn) {
         if(!localStorage.getItem('user_id')) return showModal('guestAlertModal');
         playSFX(3);
         
-        btn.disabled = true; // ป้องกันกดรัว
+        btn.disabled = true;
         const icon = btn.querySelector('.heart-icon');
         const countSpan = btn.querySelector('.count');
         const currentCount = parseInt(countSpan.innerText);
         const isLiked = icon.classList.contains('heart-liked');
 
-        // Optimistic Update
         if(isLiked) {
             icon.classList.remove('heart-liked'); icon.classList.add('grayscale', 'opacity-50');
             btn.classList.remove('border-red-200', 'bg-red-50');
@@ -380,14 +376,10 @@
         
         if(res.success) {
             countSpan.innerText = res.new_likes;
-        } else {
-            // ไม่ต้องโวยวาย user ถ้าผิดพลาดเล็กน้อย ปล่อยผ่านไปก่อน (หรือ log ลง console)
-            console.warn("Like sync failed", res);
         }
         btn.disabled = false;
     }
 
-    // 💬 Comment Logic
     function openComments(workId) {
         playSFX(4);
         currentWorkId = workId;
@@ -395,7 +387,6 @@
         const list = document.getElementById('commentsList');
         list.innerHTML = '';
         
-        // 3. ปรับ Logic การแสดงผลคอมเมนต์
         if(work.ความคิดเห็น) {
             work.ความคิดเห็น.forEach(c => {
                 list.innerHTML += `<div class="bg-white p-3 rounded-lg border mb-2 shadow-sm"><div class="text-xs font-bold text-[#D4AF37]">${c.commenter_name}</div><div class="text-gray-700">${c.comment_text}</div></div>`;
@@ -403,7 +394,6 @@
             if(work.ความคิดเห็น.length === 0) list.innerHTML = `<div class="text-center text-gray-400 mt-4">ยังไม่มีความคิดเห็น</div>`;
         }
 
-        // ตรวจสอบว่า login หรือยัง เพื่อซ่อน/แสดงช่องพิมพ์
         if(localStorage.getItem('user_id')) {
             document.getElementById('commentInputSection').classList.remove('hidden');
             document.getElementById('guestCommentNotice').classList.add('hidden');
@@ -416,7 +406,7 @@
     }
 
     async function handleAddComment() {
-        if(!localStorage.getItem('user_id')) return; // Double check
+        if(!localStorage.getItem('user_id')) return;
         const txt = document.getElementById('newComment');
         if(!txt.value.trim()) return;
         
@@ -442,7 +432,6 @@
 
     function logout() { localStorage.clear(); location.reload(); }
 
-    // INIT
     window.onload = () => {
         if(localStorage.getItem('user_id')) {
             document.getElementById('page1').classList.add('hidden');
@@ -453,8 +442,6 @@
         document.getElementById('registerForm').addEventListener('submit', handleRegister);
         document.getElementById('submitWorkForm').addEventListener('submit', handleSubmitWork);
         
-        // Buttons
-        // 1. เพิ่ม createFireflies() ในปุ่มเข้าชมของผู้เยี่ยมชม
         document.getElementById('visitBtn').onclick = () => { 
             playSFX(2); 
             document.getElementById('page1').classList.add('hidden'); 
@@ -462,7 +449,6 @@
             loadExhibition(); 
             createFireflies(); 
         };
-        // 1. เพิ่ม createFireflies() ในปุ่มเข้าชมของสมาชิก
         document.getElementById('visitExhibitionBtn').onclick = () => { 
             playSFX(2); 
             document.getElementById('page2').classList.add('hidden'); 
