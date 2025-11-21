@@ -3,36 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ลานนิทรรศการแสดงผลงานออนไลน์ อินทรวิเชียรฉันท์ ๑๑</title>
+  <title>ลานนิทรรศการแสดงผลงานออนไลน์ อินทรวิเชียรฉันท์ ๑๑ V.๑.๒</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&family=Taviraj:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Prompt:wght@300;400;600&family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
   
   <style>
     /* 🎨 Theme Variables */
     :root {
       --bg-cream: #FDFBF7;
-      --card-bg: #FFFFFF; /* ปรับให้ขาวขึ้นเพื่อให้อ่านง่าย */
-      --text-main: #2D1B0E; /* น้ำตาลเข้มเกือบดำ */
-      --text-gold: #B48E25;
+      --card-bg: #FFFFFF;
+      --text-main: #2D1B0E;
       --gold-accent: #FFD700;
+      --brown-accent: #8B4513;
     }
 
-    body { font-family: 'Sarabun', sans-serif; background-color: var(--bg-cream); color: var(--text-main); overflow-x: hidden; }
-    h1, h2, h3, .poet-font { font-family: 'Taviraj', serif; }
+    body { font-family: 'Prompt', sans-serif; background-color: var(--bg-cream); color: var(--text-main); overflow-x: hidden; }
+    
+    /* 2. ปรับแต่งฟอนต์หัวข้อให้ดูทันสมัย */
+    .modern-title {
+      font-family: 'Charm', cursive;
+      background: linear-gradient(45deg, #8B4513, #D4AF37);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      drop-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+      line-height: 1.4;
+    }
 
-    /* 📜 Paper Card Style (ปรับให้อ่านง่ายขึ้น) */
+    .poet-font { font-family: 'Sarabun', sans-serif; }
+
+    /* 📜 Paper Card Style */
     .paper-card {
       background-color: var(--card-bg);
       border: 1px solid #E5E0D0;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
       position: relative;
-      overflow: hidden;
+      /* 3. แก้บั๊กมงกุฎหาย: ต้องให้ overflow visible */
+      overflow: visible !important; 
     }
     .paper-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1);
       border-color: var(--gold-accent);
+      z-index: 10; /* ยกระดับขึ้นเมื่อ Hover */
     }
     
     /* ✨ Top 3 Effects */
@@ -42,6 +56,18 @@
       box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
     }
     
+    /* มงกุฎลอย */
+    .crown-icon {
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        font-size: 2.5rem;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        z-index: 20;
+        animation: bounce-slow 2s infinite;
+    }
+    @keyframes bounce-slow { 0%, 100% {transform: translateY(0);} 50% {transform: translateY(-5px);} }
+
     /* ❤️ Animations */
     .heart-liked { color: #ef4444; animation: heart-pop 0.4s cubic-bezier(0.17, 0.89, 0.32, 1.49); }
     @keyframes heart-pop { 0% {transform: scale(1);} 50% {transform: scale(1.5);} 100% {transform: scale(1);} }
@@ -49,7 +75,7 @@
     .fade-in { animation: fadeIn 0.6s ease-out forwards; opacity: 0; transform: translateY(20px); }
     @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
 
-    /* 🦋 Fireflies Animation Background */
+    /* 🦋 Fireflies Animation */
     .firefly {
       position: absolute;
       width: 4px; height: 4px;
@@ -69,27 +95,29 @@
     }
 
     /* Masonry Grid */
-    .masonry-grid { column-count: 1; column-gap: 1.5rem; }
+    .masonry-grid { column-count: 1; column-gap: 2rem; }
     @media (min-width: 768px) { .masonry-grid { column-count: 2; } }
     @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
-    .masonry-item { break-inside: avoid; margin-bottom: 1.5rem; }
+    .masonry-item { break-inside: avoid; margin-bottom: 2rem; }
   </style>
 </head>
 
-<body class="min-h-full">
+<body class="min-h-full text-gray-800">
   <audio id="sfx1" src="https://nonthaphathr.github.io/uploadimg/toggle-button.mp3"></audio>
   <audio id="sfx2" src="https://nonthaphathr.github.io/uploadimg/openexhibition.mp3"></audio>
   <audio id="sfx3" src="https://nonthaphathr.github.io/uploadimg/heartclick.mp3"></audio>
   <audio id="sfx4" src="https://nonthaphathr.github.io/uploadimg/commentpoet.mp3"></audio>
 
-  <div id="page1" class="min-h-screen flex flex-col items-center justify-center p-6 relative overflow-hidden bg-gradient-to-b from-[#FDFBF7] to-[#F5F0E1]">
-    <div class="absolute inset-0 z-0 opacity-30" style="background-image: url('https://www.transparenttextures.com/patterns/thai-pattern.png');"></div>
+  <div id="page1" class="min-h-screen flex flex-col items-center justify-center p-6 relative overflow-hidden bg-[#FDFBF7]">
+    <div class="absolute inset-0 z-0 opacity-20" style="background-image: url('https://www.transparenttextures.com/patterns/thai-pattern.png');"></div>
     
     <img src="https://nonthaphathr.github.io/uploadimg/logokhampraphan-non.png" alt="โลโก้" class="w-48 h-48 mb-6 object-contain z-10 drop-shadow-xl animate-bounce-slow">
-    <h1 class="text-3xl md:text-5xl font-bold text-center mb-4 text-[#5D4037] z-10 leading-relaxed drop-shadow-sm">ลานนิทรรศการ<br><span class="text-[#B48E25]">อินทรวิเชียรฉันท์ ๑๑</span></h1>
     
-    <div class="flex flex-col gap-4 w-full max-w-md z-10 mt-8">
-      <button id="visitBtn" class="bg-white hover:bg-[#FFFDF5] text-[#5D4037] w-full py-4 px-6 text-xl font-bold rounded-xl shadow-lg border-2 border-[#D4AF37] transition-all hover:scale-105">
+    <h1 class="text-4xl md:text-6xl font-bold text-center mb-2 modern-title z-10">ลานนิทรรศการ</h1>
+    <h2 class="text-2xl md:text-4xl text-center mb-8 modern-title z-10" style="font-weight: 400;">อินทรวิเชียรฉันท์ ๑๑</h2>
+    
+    <div class="flex flex-col gap-4 w-full max-w-md z-10 mt-4">
+      <button id="visitBtn" class="bg-white hover:bg-[#FFFDF5] text-[#8B4513] w-full py-4 px-6 text-xl font-bold rounded-xl shadow-lg border-2 border-[#D4AF37] transition-all hover:scale-105">
         👀 เข้าชมนิทรรศการ
       </button> 
       <button id="registerBtn" class="bg-gradient-to-r from-[#D4AF37] to-[#B48E25] text-white w-full py-4 px-6 text-xl font-bold rounded-xl shadow-lg transition-all hover:scale-105 hover:shadow-2xl">
@@ -117,14 +145,14 @@
     <div class="sticky top-0 z-40 bg-[#FAF9F6]/95 backdrop-blur-md py-3 mb-6 border-b border-yellow-200 flex justify-between items-center px-2">
         <div class="flex items-center gap-3">
             <img src="https://nonthaphathr.github.io/uploadimg/logokhampraphan-non.png" class="w-10 h-10">
-            <h2 class="text-xl md:text-2xl font-bold text-[#5D4037]">ลานจัดแสดง</h2>
+            <h2 class="text-xl md:text-2xl font-bold modern-title text-[1.5rem]">ลานจัดแสดง</h2>
         </div>
         <button onclick="location.reload()" class="bg-[#5D4037] text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg hover:bg-[#3E2723]">🏠 กลับ</button>
     </div>
     
     <div id="loadingExhibition" class="text-center py-20 relative z-10">
       <div class="inline-block w-12 h-12 border-4 border-[#D4AF37] border-t-transparent rounded-full animate-spin"></div>
-      <p class="mt-4 text-[#8B4513] animate-pulse">กำลังโหลด...</p>
+      <p class="mt-4 text-[#8B4513] animate-pulse">กำลังโหลดผลงาน...</p>
     </div>
 
     <div id="emptyState" class="hidden text-center py-20 relative z-10 fade-in">
@@ -133,7 +161,7 @@
         <button onclick="showModal('submitWorkModal')" class="mt-4 text-[#D4AF37] font-bold underline">ส่งผลงานคนแรก</button>
     </div>
     
-    <div id="exhibitionGrid" class="masonry-grid max-w-7xl mx-auto relative z-10"></div>
+    <div id="exhibitionGrid" class="masonry-grid max-w-7xl mx-auto relative z-10 pt-4"></div>
   </div>
 
   <div id="registerModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
@@ -167,9 +195,13 @@
     <div class="bg-white rounded-xl shadow-2xl p-6 w-full max-w-lg h-[80vh] flex flex-col">
       <div class="flex justify-between items-center mb-4 border-b pb-2"><h3 class="font-bold text-lg">ความคิดเห็น</h3><button onclick="hideModal('commentsModal')" class="text-2xl">&times;</button></div>
       <div id="commentsList" class="flex-1 overflow-y-auto space-y-3 p-2 bg-gray-50 rounded-lg mb-4"></div>
-      <div class="flex gap-2">
+      
+      <div id="commentInputSection" class="flex gap-2">
         <input id="newComment" placeholder="แสดงความเห็น..." class="flex-1 p-3 border rounded-lg outline-none focus:ring-2 ring-yellow-400">
         <button onclick="handleAddComment()" id="sendCommentBtn" class="bg-[#D4AF37] text-white px-4 rounded-lg font-bold">ส่ง</button>
+      </div>
+      <div id="guestCommentNotice" class="hidden text-center p-2 text-gray-500 text-sm bg-gray-100 rounded-lg">
+         🔒 กรุณาลงทะเบียนเพื่อแสดงความคิดเห็น
       </div>
     </div>
   </div>
@@ -208,6 +240,8 @@
     // 🦋 Create Fireflies
     function createFireflies() {
         const container = document.getElementById('fireflies-container');
+        // Clear old fireflies first to avoid duplicates
+        container.innerHTML = '';
         for(let i=0; i<15; i++) {
             const f = document.createElement('div');
             f.className = 'firefly';
@@ -227,7 +261,10 @@
         try {
             const res = await fetch(APP_SCRIPT_URL, { method: 'POST', body: JSON.stringify({action, data}) });
             return await res.json();
-        } catch(e) { return {success: false, message: 'Connection Failed'}; }
+        } catch(e) { 
+            console.error(e);
+            return {success: false, message: 'Connection Failed'}; 
+        }
     }
 
     // 🎮 Logic
@@ -296,13 +333,13 @@
                 div.style.animationDelay = i*0.1 + 's';
                 
                 div.innerHTML = `
-                    ${work.is_top3 ? '<div class="absolute -top-3 -right-3 text-3xl animate-bounce">👑</div>' : ''}
+                    ${work.is_top3 ? '<div class="crown-icon">👑</div>' : ''}
                     <h3 class="text-xl font-bold text-[#2D1B0E] mb-1 break-words">${work.ชื่อเรื่อง}</h3>
                     <p class="text-xs text-[#B48E25] font-bold mb-4 border-b pb-2 border-gray-100">โดย ${work.ชื่อผู้แต่ง} (${work.ชั้น})</p>
                     <p class="poet-font text-lg text-gray-800 leading-relaxed whitespace-pre-wrap pl-4 border-l-4 border-yellow-200 mb-4">${work.เนื้อหาบทกวี}</p>
                     <div class="flex gap-2 pt-2">
-                        <button onclick="toggleLike('${work.work_id}', this)" class="flex-1 py-2 rounded-lg border hover:bg-red-50 flex items-center justify-center gap-2 transition-colors ${work.is_liked ? 'border-red-200 bg-red-50' : 'border-gray-200'}">
-                            <span class="text-xl ${work.is_liked ? 'heart-liked' : 'grayscale opacity-50'}">❤️</span>
+                        <button onclick="toggleLike('${work.work_id}', this)" class="like-btn flex-1 py-2 rounded-lg border hover:bg-red-50 flex items-center justify-center gap-2 transition-colors ${work.is_liked ? 'border-red-200 bg-red-50' : 'border-gray-200'}">
+                            <span class="text-xl heart-icon ${work.is_liked ? 'heart-liked' : 'grayscale opacity-50'}">❤️</span>
                             <span class="font-bold text-gray-600 count">${work.จำนวนหัวใจ}</span>
                         </button>
                         <button onclick="openComments('${work.work_id}')" class="flex-1 py-2 rounded-lg border border-gray-200 hover:bg-yellow-50 text-gray-600 font-bold flex items-center justify-center gap-2">
@@ -323,12 +360,12 @@
         playSFX(3);
         
         btn.disabled = true; // ป้องกันกดรัว
-        const icon = btn.querySelector('span');
+        const icon = btn.querySelector('.heart-icon');
         const countSpan = btn.querySelector('.count');
         const currentCount = parseInt(countSpan.innerText);
         const isLiked = icon.classList.contains('heart-liked');
 
-        // Optimistic Update (เปลี่ยนสีก่อนเลย)
+        // Optimistic Update
         if(isLiked) {
             icon.classList.remove('heart-liked'); icon.classList.add('grayscale', 'opacity-50');
             btn.classList.remove('border-red-200', 'bg-red-50');
@@ -342,38 +379,44 @@
         const res = await callAPI('likeWork', { user_id: localStorage.getItem('user_id'), work_id: workId });
         
         if(res.success) {
-            // Update ของจริงจาก Server
             countSpan.innerText = res.new_likes;
-            if(res.liked) {
-                icon.classList.remove('grayscale', 'opacity-50'); icon.classList.add('heart-liked');
-            } else {
-                icon.classList.remove('heart-liked'); icon.classList.add('grayscale', 'opacity-50');
-            }
         } else {
-            showToast('เกิดข้อผิดพลาด', 'error');
-            // Revert changes if error... (optional implementation)
+            // ไม่ต้องโวยวาย user ถ้าผิดพลาดเล็กน้อย ปล่อยผ่านไปก่อน (หรือ log ลง console)
+            console.warn("Like sync failed", res);
         }
         btn.disabled = false;
     }
 
     // 💬 Comment Logic
     function openComments(workId) {
-        if(!localStorage.getItem('user_id')) return showModal('guestAlertModal');
         playSFX(4);
         currentWorkId = workId;
         const work = allWorks.find(w => w.work_id == workId);
         const list = document.getElementById('commentsList');
         list.innerHTML = '';
         
+        // 3. ปรับ Logic การแสดงผลคอมเมนต์
         if(work.ความคิดเห็น) {
             work.ความคิดเห็น.forEach(c => {
                 list.innerHTML += `<div class="bg-white p-3 rounded-lg border mb-2 shadow-sm"><div class="text-xs font-bold text-[#D4AF37]">${c.commenter_name}</div><div class="text-gray-700">${c.comment_text}</div></div>`;
             });
+            if(work.ความคิดเห็น.length === 0) list.innerHTML = `<div class="text-center text-gray-400 mt-4">ยังไม่มีความคิดเห็น</div>`;
         }
+
+        // ตรวจสอบว่า login หรือยัง เพื่อซ่อน/แสดงช่องพิมพ์
+        if(localStorage.getItem('user_id')) {
+            document.getElementById('commentInputSection').classList.remove('hidden');
+            document.getElementById('guestCommentNotice').classList.add('hidden');
+        } else {
+            document.getElementById('commentInputSection').classList.add('hidden');
+            document.getElementById('guestCommentNotice').classList.remove('hidden');
+        }
+        
         showModal('commentsModal');
     }
 
     async function handleAddComment() {
+        if(!localStorage.getItem('user_id')) return; // Double check
         const txt = document.getElementById('newComment');
         if(!txt.value.trim()) return;
         
@@ -383,14 +426,14 @@
         const res = await callAPI('addComment', { 
             user_id: localStorage.getItem('user_id'), 
             work_id: currentWorkId, 
-            text: txt.value // แก้ให้ส่ง key 'text' ตรงกับ Backend
+            text: txt.value
         });
 
         if(res.success) {
             txt.value = '';
             showToast('ส่งความเห็นแล้ว');
             hideModal('commentsModal');
-            loadExhibition(); // โหลดใหม่เพื่อนับจำนวนคอมเมนต์
+            loadExhibition();
         } else {
             showToast('ส่งไม่สำเร็จ', 'error');
         }
@@ -411,8 +454,23 @@
         document.getElementById('submitWorkForm').addEventListener('submit', handleSubmitWork);
         
         // Buttons
-        document.getElementById('visitBtn').onclick = () => { playSFX(2); document.getElementById('page1').classList.add('hidden'); document.getElementById('page3').classList.remove('hidden'); loadExhibition(); createFireflies(); };
-        document.getElementById('visitExhibitionBtn').onclick = () => { playSFX(2); document.getElementById('page2').classList.add('hidden'); document.getElementById('page3').classList.remove('hidden'); loadExhibition(); createFireflies(); };
+        // 1. เพิ่ม createFireflies() ในปุ่มเข้าชมของผู้เยี่ยมชม
+        document.getElementById('visitBtn').onclick = () => { 
+            playSFX(2); 
+            document.getElementById('page1').classList.add('hidden'); 
+            document.getElementById('page3').classList.remove('hidden'); 
+            loadExhibition(); 
+            createFireflies(); 
+        };
+        // 1. เพิ่ม createFireflies() ในปุ่มเข้าชมของสมาชิก
+        document.getElementById('visitExhibitionBtn').onclick = () => { 
+            playSFX(2); 
+            document.getElementById('page2').classList.add('hidden'); 
+            document.getElementById('page3').classList.remove('hidden'); 
+            loadExhibition(); 
+            createFireflies(); 
+        };
+
         document.getElementById('registerBtn').onclick = () => { playSFX(1); showModal('registerModal'); };
         document.getElementById('submitWorkBtn').onclick = () => { playSFX(1); showModal('submitWorkModal'); };
     };
