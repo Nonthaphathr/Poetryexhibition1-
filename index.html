@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ลานนิทรรศการแสดงผลงานออนไลน์ อินทรวิเชียรฉันท์ ๑๑</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      box-sizing: border-box;
+      font-family: 'Sarabun', sans-serif;
+    }
+    
+    .golden-glow {
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.3);
+      animation: pulse-gold 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse-gold {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.3); }
+      50% { transform: scale(1.02); box-shadow: 0 0 40px rgba(255, 215, 0, 0.8), 0 0 80px rgba(255, 215, 0, 0.4); }
+    }
+    
+    .heart-liked {
+      color: #ef4444;
+      animation: heart-beat 0.3s ease-in-out;
+    }
+    
+    @keyframes heart-beat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+    }
+    
+    /* Masonry Layout */
+    .masonry-grid {
+      column-count: 1;
+      column-gap: 1.5rem;
+    }
+    
+    @media (min-width: 768px) {
+      .masonry-grid { column-count: 2; }
+    }
+    
+    @media (min-width: 1024px) {
+      .masonry-grid { column-count: 3; }
+    }
+    
+    .masonry-item {
+      break-inside: avoid;
+      margin-bottom: 1.5rem;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+</head>
+
+<body class="min-h-full">
+  <audio id="sfx1" src="https://nonthaphathr.github.io/uploadimg/toggle-button.mp3"></audio>
+  <audio id="sfx2" src="https://nonthaphathr.github.io/uploadimg/openexhibition.mp3"></audio>
+  <audio id="sfx3" src="https://nonthaphathr.github.io/uploadimg/heartclick.mp3"></audio>
+  <audio id="sfx4" src="https://nonthaphathr.github.io/uploadimg/commentpoet.mp3"></audio>
+
+  <div id="page1" class="min-h-full flex flex-col items-center justify-center p-6">
+    <img id="logo" src="https://nonthaphathr.github.io/uploadimg/logokhampraphan-non.png" alt="โลโก้" class="w-32 h-32 mb-6 object-contain">
+    <h1 id="eventTitle" class="text-3xl md:text-4xl font-bold text-center mb-8"></h1>
+    <div class="flex flex-col gap-4 w-full max-w-md">
+      <button id="visitBtn" class="w-full py-4 px-6 text-lg font-semibold rounded-lg shadow-lg transition-all hover:scale-105"> </button> 
+      <button id="registerBtn" class="w-full py-4 px-6 text-lg font-semibold rounded-lg shadow-lg transition-all hover:scale-105"> </button>
+    </div>
+  </div>
+
+  <div id="page2" class="hidden min-h-full flex flex-col p-6">
+    <img src="https://nonthaphathr.github.io/uploadimg/logokhampraphan-non.png" alt="โลโก้" class="w-24 h-24 mx-auto mb-4 object-contain">
+    <h2 id="welcomeMsg" class="text-2xl md:text-3xl font-bold text-center mb-8"></h2>
+    <div class="flex flex-col gap-4 w-full max-w-md mx-auto">
+      <button id="visitExhibitionBtn" class="w-full py-4 px-6 text-lg font-semibold rounded-lg shadow-lg transition-all hover:scale-105"> </button> 
+      <button id="submitWorkBtn" class="w-full py-4 px-6 text-lg font-semibold rounded-lg shadow-lg transition-all hover:scale-105"> ส่งผลงานเพื่อจัดแสดง </button>
+    </div>
+  </div>
+
+  <div id="page3" class="hidden min-h-full p-6">
+    <img src="https://nonthaphathr.github.io/uploadimg/logokhampraphan-non.png" alt="โลโก้" class="w-20 h-20 mx-auto mb-4 object-contain">
+    <h2 class="text-3xl font-bold text-center mb-6">ลานจัดแสดงผลงาน</h2>
+    <div id="loadingExhibition" class="text-center py-12">
+      <div class="inline-block w-12 h-12 border-4 border-t-transparent rounded-full animate-spin" style="border-top-color: #8B4513;"></div>
+      <p class="mt-4 text-lg">กำลังโหลดผลงาน...</p>
+    </div>
+    <div id="exhibitionGrid" class="masonry-grid"></div>
+    <div class="fixed bottom-6 right-6">
+      <button onclick="location.reload()" class="bg-gray-800 text-white p-3 rounded-full shadow-lg hover:bg-gray-700">🏠 กลับหน้าหลัก</button>
+    </div>
+  </div>
+
+  <div id="registerModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div class="rounded-lg shadow-2xl p-6 w-full max-w-md bg-white">
+      <h3 class="text-2xl font-bold mb-4">ลงทะเบียน</h3>
+      <form id="registerForm" class="space-y-4">
+        <div>
+          <label for="prefix" class="block text-sm font-semibold mb-1">คำนำหน้า</label> 
+          <select id="prefix" required class="w-full px-4 py-2 border-2 rounded-lg focus:outline-none focus:ring-2"> <option value="">เลือกคำนำหน้า</option> <option value="เด็กชาย">เด็กชาย</option> <option value="เด็กหญิง">เด็กหญิง</option> <option value="นาย">นาย</option> <option value="นางสาว">นางสาว</option> </select>
+        </div>
+        <div>
+          <label for="firstName" class="block text-sm font-semibold mb-1">ชื่อ</label> 
+          <input type="text" id="firstName" required class="w-full px-4 py-2 border-2 rounded-lg focus:outline-none focus:ring-2">
+        </div>
+        <div>
+          <label for="lastName" class="block text-sm font-semibold mb-1">สกุล</label> 
+          <input type="text" id="lastName" required class="w-full px-4 py-2 border-2 rounded-lg focus:outline-none focus:ring-2">
+        </div>
+        <div>
+          <label for="grade" class="block text-sm font-semibold mb-1">ชั้น</label> 
+          <select id="grade" required class="w-full px-4 py-2 border-2 rounded-lg focus:outline-none focus:ring-2"> <option value="">เลือกชั้นเรียน</option> <option value="ม.1">ม.1</option> <option value="ม.2">ม.2</option> <option value="ม.3">ม.3</option> <option value="ม.4">ม.4</option> <option value="ม.5">ม.5</option> <option value="ม.6">ม.6</option> </select>
+        </div>
+        <div>
+          <label for="studentNumber" class="block text-sm font-semibold mb-1">เลขที่</label> 
+          <input type="number" id="studentNumber" required min="1" class="w-full px-4 py-2 border-2 rounded-lg focus:outline-none focus:ring-2">
+        </div>
+        <div class="flex gap-3">
+          <button type="submit" id="submitRegisterBtn" class="flex-1 py-3 px-6 font-semibold rounded-lg shadow-lg transition-all hover:scale-105"> ลงทะเบียน </button> 
+          <button type="button" id="cancelRegisterBtn" class="flex-1 py-3 px-6 font-semibold rounded-lg shadow-lg transition-all hover:scale-105"> ยกเลิก </button>
+        </div>
+      </form>
+      <div id="registerLoading" class="hidden text-center py-4">
+        <div class="inline-block w-8 h-8 border-4 border-t-transparent rounded-full animate-spin border-yellow-600"></div>
+        <p class="mt-2">กำลังลงทะเบียน...</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="submitWorkModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div class="rounded-lg shadow-2xl p-6 w-full max-w-md bg-white">
+      <h3 class="text-2xl font-bold mb-4">ส่งผลงาน</h3>
+      <form id="submitWorkForm" class="space-y-4">
+        <div>
+          <label for="workTitle" class="block text-sm font-semibold mb-1">ชื่อเรื่อง</label> 
+          <input type="text" id="workTitle" required class="w-full px-4 py-2 border-2 rounded-lg focus:outline-none focus:ring-2">
+        </div>
+        <div>
+          <label for="workContent" class="block text-sm font-semibold mb-1">เนื้อหาบทกวี</label> 
+          <textarea id="workContent" required rows="6" class="w-full px-4 py-2 border-2 rounded-lg focus:outline-none focus:ring-2 resize-none"></textarea>
+        </div>
+        <div class="flex gap-3">
+          <button type="submit" id="submitWorkSubmitBtn" class="flex-1 py-3 px-6 font-semibold rounded-lg shadow-lg transition-all hover:scale-105"> ส่งผลงาน </button> 
+          <button type="button" id="cancelWorkBtn" class="flex-1 py-3 px-6 font-semibold rounded-lg shadow-lg transition-all hover:scale-105"> ยกเลิก </button>
+        </div>
+      </form>
+      <div id="workLoading" class="hidden text-center py-4">
+        <div class="inline-block w-8 h-8 border-4 border-t-transparent rounded-full animate-spin border-yellow-600"></div>
+        <p class="mt-2">กำลังส่งผลงาน...</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="commentsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div class="rounded-lg shadow-2xl p-6 w-full max-w-2xl max-h-[90%] overflow-y-auto bg-white">
+      <h3 class="text-2xl font-bold mb-4">ความคิดเห็น</h3>
+      <div id="commentsList" class="space-y-3 mb-4 max-h-64 overflow-y-auto"></div>
+      <div id="addCommentSection">
+        <textarea id="newComment" placeholder="เขียนความคิดเห็น..." rows="3" class="w-full px-4 py-2 border-2 rounded-lg focus:outline-none focus:ring-2 resize-none mb-3"></textarea>
+        <div class="flex gap-3">
+          <button id="submitCommentBtn" class="flex-1 py-2 px-4 font-semibold rounded-lg shadow-lg transition-all hover:scale-105"> ส่งความคิดเห็น </button> 
+          <button id="closeCommentsBtn" class="flex-1 py-2 px-4 font-semibold rounded-lg shadow-lg transition-all hover:scale-105"> ปิด </button>
+        </div>
+      </div>
+      <div id="commentLoading" class="hidden text-center py-4">
+        <div class="inline-block w-6 h-6 border-4 border-t-transparent rounded-full animate-spin border-yellow-600"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="guestAlertModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div class="rounded-lg shadow-2xl p-6 w-full max-w-md text-center bg-white">
+      <h3 class="text-xl font-bold mb-4">โปรดลงทะเบียนก่อน</h3>
+      <p class="mb-6">คุณต้องลงทะเบียนเพื่อใช้งานฟีเจอร์นี้</p>
+      <div class="flex gap-3">
+        <button id="goToRegisterBtn" class="flex-1 py-3 px-6 font-semibold rounded-lg shadow-lg transition-all hover:scale-105"> ไปลงทะเบียน </button> 
+        <button id="closeGuestAlertBtn" class="flex-1 py-3 px-6 font-semibold rounded-lg shadow-lg transition-all hover:scale-105"> ปิด </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="hidden fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 transition-all text-white font-semibold"></div>
+
+  <script>
+    // --- Configuration & Constants ---
+    // ใส่ URL ของ App Script ที่ได้มาที่นี่
+    const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxz2rxiHgeeV8fffc21Z0dhtj21V7519a33j1ekaEs258QDmdcjRTnnMABm3_7B0mXT/exec';
+    
+    // Config ค่าสีและข้อความเริ่มต้น (Default Config)
+    const defaultConfig = {
+      background_color: '#FFFAF0',
